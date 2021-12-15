@@ -1,12 +1,18 @@
 <?php
 
+    
     require './bibliotecas/PHPmailer/Exception.php';
     require './bibliotecas/PHPmailer/PHPMailer.php';
+    require './bibliotecas/PHPmailer/OAuth.php';
+    require './bibliotecas/PHPmailer/POP3.php';
     require './bibliotecas/PHPmailer/SMTP.php';
+
 
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
+
+    
 
     class Mensagem{
 
@@ -39,45 +45,45 @@
     $mensagem->__set('mensagem', $_POST['mensagem']);
 
     if(!$mensagem->MensagemValida()){
-            echo'mensagem valida';
+            echo'mensagem nao  valida';
     }else{
-        //Create an instance; passing `true` enables exceptions
+       //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
 
         try {
             //Server settings
             $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
             $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp-relay.gmail.com';                     //Set the SMTP server to send through
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = 'teste87651@gmail.com';                     //SMTP username
             $mail->Password   = '87651teste';                               //SMTP password
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+            $mail->SMTPSecure = 'tls' ;            // Habilita a criptografia TLS implícita 
+            $mail->Port       = 587; 
 
             //Recipients
-            $mail->setFrom('teste87651@gmail.com', 'teste');
-            $mail->addAddress('teste87651@gmail.com', 'destinatario User');     //Add a recipient
-            
+            $mail->setFrom('teste87651@gmail.com', 'testeemail');
+            $mail->addAddress('teste87651@gmail.com', ' User');     //Add a recipient
+            $mail->addAddress('teste87651@gmail.com');               //Name is optional
+            $mail->addReplyTo('info@example.com', 'Information');
             //$mail->addCC('cc@example.com');
-            //$mail->addBCC('bcc@example.com');
+           // $mail->addBCC('bcc@example.com');
 
             //Attachments
             //$mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-           // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
+            //$mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
 
             //Content
             $mail->isHTML(true);                                  //Set email format to HTML
-            $mail->Subject = 'oi ass ';
-            $mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-            $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+            $mail->Subject = 'assunto';
+            $mail->Body    = 'body <b>aaaaaaa!</b>';
+            $mail->AltBody = 'caso nao funcione ';
 
             $mail->send();
             echo 'sucesso';
         } catch (Exception $e) {
-            echo "Erros ao enviar mensagem: {$mail->ErrrInfo}";
+            echo "
+            Error: {$mail->ErrorInfo}";
         }
-            }
-
-
+    }
 ?>
