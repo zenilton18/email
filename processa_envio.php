@@ -58,7 +58,7 @@
             $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
             $mail->Username   = 'teste87651@gmail.com';                     //SMTP username
-            $mail->Password   = '87651teste';                               //SMTP password
+            $mail->Password   = '*********';           //tem uma versao em produçao, mas como aqui e publico nao vou mostar a senha                     //SMTP password
             $mail->SMTPSecure = 'tls' ;            // Habilita a criptografia TLS implícita 
             $mail->Port       = 587; 
 
